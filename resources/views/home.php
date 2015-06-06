@@ -50,7 +50,7 @@
 					<h2>PHPTwitterAPI</h2>
 					<p>A simple API for Twitter. All you just need.</p>
 					<ul class="actions">
-						<li><a href="#" class="button special">Sign Up</a></li>
+						<li><a href="/signup" class="button special">Sign Up</a></li>
 <!-- 						<li><a href="#" class="button">Learn More</a></li>
  -->					</ul>
 				</section>

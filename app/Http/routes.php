@@ -14,3 +14,7 @@
 $app->get('/', function() use ($app) {
     return view('home');
 });
+
+$app->get('/signup', function() use ($app) {
+    return view('sign-up');
+});
