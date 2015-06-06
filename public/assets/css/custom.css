@@ -47,3 +47,13 @@
 	line-height: 3.5em;
 	color: #FFF;
 }
+
+
+/* DASHBOARD */
+
+.consumption i {
+	margin-right: 10px;
+}
+.consumption .offer {
+	margin-bottom: 20px;
+}

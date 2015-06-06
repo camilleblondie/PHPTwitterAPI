@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="/assets/css/custom.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
 	<body>
@@ -22,35 +23,95 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="index.html">Home</a></li>
-							<li><a href="/signup" class="button">Sign Up</a></li>
+							<li><a href="index.html">Dashboard</a></li>
+							<li><a href="#" class="button">Sign Up</a></li>
 						</ul>
 					</nav>
 				</header>
 
 			<!-- Main -->
-				<section id="main" class="container 75%">
+				<section id="main" class="container">
 					<header>
-						<h2>Sign Up</h2>
-						<p>Create an account to use PHPTwitterAPI.</p>
+						<h2>Your dashboard</h2>
 					</header>
 					<div class="box">
-						<form method="post" action="#">
-							<div class="row uniform">
-								<div class="12u">
-									<input type="email" name="email" id="email" value="" placeholder="Email" />
-								</div>
-								<div class="12u">
-									<input type="text" name="password" id="password" value="" placeholder="Password" />
-								</div>
+						<section class="api-key">
+							<header>
+								<h3>Your API Key</h3>
+								<p>Use it as a GET parameter in your calls</p>
+							</header>
+							<p><strong>ae45fe30ou6bdjkyt</strong></p>
+						</section>
+
+						<section class="consumption">
+							<header>
+								<h3>Your stats</h3>
+								<p>Monitor your call consumption to the API</p>
+							</header>
+							<h4 class="offer"><i class="fa fa-check"></i>Your offer : <strong>Gold</strong></h4>
+							<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
+							<table>
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>07/06/15</td>
+											<td>67</td>
+										</tr>
+										<tr>
+											<td>07/06/15</td>
+											<td>88</td>
+										</tr>
+										<tr>
+											<td>07/06/15</td>
+											<td>76</td>
+										</tr>
+										<tr>
+											<td>07/06/15</td>
+											<td>54</td>
+										</tr>
+									</tbody>
+								</table>
+
+							<h4><i class="fa fa-history"></i>  Call history</h4>
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th>HTTP Method</th>
+											<th>Route</th>
+											<th>Date</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>GET</td>
+											<td>/api/favorites</td>
+											<td>07/06/15</td>
+										</tr>
+										<tr>
+											<td>GET</td>
+											<td>/api/followers</td>
+											<td>07/06/15</td>
+										</tr>
+										<tr>
+											<td>GET</td>
+											<td>/api/users/1</td>
+											<td>07/06/15</td>
+										</tr>
+										<tr>
+											<td>POST</td>
+											<td>/api/status/3</td>
+											<td>07/06/15</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
-							<div class="row uniform">
-								<div class="12u">
-									<ul class="actions align-center">
-										<li><input type="submit" value="Sign up!" /></li>
-									</ul>
-								</div>
-							</div>
-						</form>
+						</section>
 					</div>
 				</section>
 

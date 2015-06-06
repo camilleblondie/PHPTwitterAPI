@@ -18,3 +18,7 @@ $app->get('/', function() use ($app) {
 $app->get('/signup', function() use ($app) {
     return view('sign-up');
 });
+
+$app->get('/dashboard', function() use ($app) {
+    return view('dashboard');
+});
