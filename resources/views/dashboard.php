@@ -19,7 +19,7 @@
 
 			<!-- Header -->
 				<header id="header">
-					<h1><a href="index.html">PHPTwitterAPI</a> by Florian, Jean and Camille</h1>
+					<h1><a href="/">PHPTwitterAPI</a> by Florian, Jean and Camille</h1>
 					<nav id="nav">
 						<ul>
 							<li><a href="/">Home</a></li>
@@ -48,7 +48,9 @@
 								<h3>Your stats</h3>
 								<p>Monitor your call consumption to the API</p>
 							</header>
-							<h4 class="offer"><i class="fa fa-check"></i>Your offer : <strong>Gold</strong></h4>
+							<h4 class="offer">
+								<i class="fa fa-check"></i>
+								Your offer : <strong>Gold - 1200 calls/day</strong></h4>
 							<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
 							<table>
 									<thead>

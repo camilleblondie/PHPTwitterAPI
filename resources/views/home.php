@@ -62,15 +62,15 @@
 							<pre>GET /api/favorites/:userId</pre>
 							<span>JSON response</span>
 							<pre>
-								[
-								  {
-										"id" : 123456,
-										"hashtags" : [ "#yolo", "#swag" ],
-										"text" : "Super cool Twitter API",
-										"retweet_count": 0,
-										"created_at": "Sat May 09 17:58:22 +0000 2009",
-								  }
-								]
+[
+  {
+		"id": 123456,
+		"hashtags": [ "#yolo", "#swag" ],
+		"text": "Super cool Twitter API",
+		"retweet_count": 0,
+		"created_at": "Sat May 09 17:58:22 +0000 2009",
+  }
+]
 							</pre>
 						</div>
 					</section>
@@ -88,7 +88,7 @@
 								<h3 class="offer-title bronze">Bronze</h3>
 								<p>100 calls/day</p>
 								<ul class="actions">
-									<li><a href="#" class="button alt">Choose</a></li>
+									<li><a href="/signup" class="button alt">Choose</a></li>
 								</ul>
 							</section>
 
@@ -102,7 +102,7 @@
 								<h3 class="offer-title silver">Silver</h3>
 								<p>600 calls/day</p>
 								<ul class="actions">
-									<li><a href="#" class="button alt">Choose</a></li>
+									<li><a href="/signup" class="button alt">Choose</a></li>
 								</ul>
 							</section>
 
@@ -116,7 +116,7 @@
 								<h3 class="offer-title gold">Gold</h3>
 								<p>1200 calls/day</p>
 								<ul class="actions">
-									<li><a href="#" class="button alt">Choose</a></li>
+									<li><a href="/signup" class="button alt">Choose</a></li>
 								</ul>
 							</section>
 

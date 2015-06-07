@@ -18,7 +18,7 @@
 
 			<!-- Header -->
 				<header id="header">
-					<h1><a href="index.html">PHPTwitterAPI</a> by Florian, Jean and Camille</h1>
+					<h1><a href="/">PHPTwitterAPI</a> by Florian, Jean and Camille</h1>
 					<nav id="nav">
 						<ul>
 							<li><a href="/">Home</a></li>
