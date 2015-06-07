@@ -23,8 +23,8 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="/">Home</a></li>
-							<li><a href="/dashboard">Dashboard</a></li>
 							<li><a href="/docs">Docs</a></li>
+							<li><a href="/signup" class="button">Sign Up</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -32,86 +32,72 @@
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
-						<h2>Your dashboard</h2>
+						<h2>PHPTwitterAPI Docs</h2>
 					</header>
-					<div class="box">
-						<section class="api-key">
-							<header>
-								<h3>Your API Key</h3>
-								<p>Use it as a GET parameter in your calls</p>
-							</header>
-							<p><strong>ae45fe30ou6bdjkyt</strong></p>
-						</section>
-
-						<section class="consumption">
-							<header>
-								<h3>Your stats</h3>
-								<p>Monitor your call consumption to the API</p>
-							</header>
-							<h4 class="offer"><i class="fa fa-check"></i>Your offer : <strong>Gold</strong></h4>
-							<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
-							<table>
-									<thead>
-										<tr>
-											<th>Date</th>
-											<th>Total</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>07/06/15</td>
-											<td>67</td>
-										</tr>
-										<tr>
-											<td>07/06/15</td>
-											<td>88</td>
-										</tr>
-										<tr>
-											<td>07/06/15</td>
-											<td>76</td>
-										</tr>
-										<tr>
-											<td>07/06/15</td>
-											<td>54</td>
-										</tr>
-									</tbody>
-								</table>
-
-							<h4><i class="fa fa-history"></i>  Call history</h4>
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
-											<th>HTTP Method</th>
-											<th>Route</th>
-											<th>Date</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>GET</td>
-											<td>/api/favorites</td>
-											<td>07/06/15</td>
-										</tr>
-										<tr>
-											<td>GET</td>
-											<td>/api/followers</td>
-											<td>07/06/15</td>
-										</tr>
-										<tr>
-											<td>GET</td>
-											<td>/api/users/1</td>
-											<td>07/06/15</td>
-										</tr>
-										<tr>
-											<td>POST</td>
-											<td>/api/status/3</td>
-											<td>07/06/15</td>
-										</tr>
-									</tbody>
-								</table>
+					<div class="box row uniform">
+							<div class="5u 12u">
+								<ul class="nav nav-pills nav-stacked">
+									<li class="active">
+										<a href="#getFollowers" aria-controls="getFollowers" data-toggle="pill">
+										GET /api/followers
+										</a>
+									</li>
+									<li>
+										<a href="#followings" aria-controls="followings" data-toggle="pill">
+										GET /api/followings
+										</a>
+									</li>
+									<li>
+										<a href="#status" aria-controls="messages"  data-toggle="pill">
+										GET /api/status
+										</a>
+									</li>
+								</ul>
 							</div>
-						</section>
+
+							<div class="tab-content 7u 12u">
+								<div role="tabpanel" class="tab-pane active" id="getFollowers">
+									<h4>Parameters :</h4>
+									<table>
+										<tbody>
+											<tr>
+												<td>userId</td>
+												<td>Id of the user</td>
+											</tr>
+											<tr>
+												<td>limit</td>
+												<td>Max number of followers returned</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div role="tabpanel" class="tab-pane" id="followings">
+									<h4>Parameters :</h4>
+									<table>
+										<tbody>
+											<tr>
+												<td>userId</td>
+												<td>Id of the user</td>
+											</tr>
+											<tr>
+												<td>limit</td>
+												<td>Max number of followers returned</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div role="tabpanel" class="tab-pane" id="status">
+									<h4>Parameters :</h4>
+									<table>
+										<tbody>
+											<tr>
+												<td>id</td>
+												<td>Id of the status</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
 					</div>
 				</section>
 
@@ -141,5 +127,7 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 
+			<!-- Latest compiled and minified JavaScript -->
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	</body>
 </html>

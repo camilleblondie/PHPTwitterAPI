@@ -23,8 +23,9 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="/">Home</a></li>
+							<li><a href="/docs">Docs</a></li>
 							<li><a href="/dashboard">Dashboard</a></li>
-							<li><a href="#" class="button">Sign Up</a></li>
+							<li><a href="/signup" class="button">Sign Up</a></li>
 						</ul>
 					</nav>
 				</header>

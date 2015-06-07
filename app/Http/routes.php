@@ -22,3 +22,7 @@ $app->get('/signup', function() use ($app) {
 $app->get('/dashboard', function() use ($app) {
     return view('dashboard');
 });
+
+$app->get('/docs', function() use ($app) {
+    return view('docs');
+});

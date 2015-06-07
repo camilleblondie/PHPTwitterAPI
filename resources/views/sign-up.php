@@ -21,7 +21,8 @@
 					<h1><a href="index.html">PHPTwitterAPI</a> by Florian, Jean and Camille</h1>
 					<nav id="nav">
 						<ul>
-							<li><a href="index.html">Home</a></li>
+							<li><a href="/">Home</a></li>
+							<li><a href="/docs">Docs</a></li>
 							<li><a href="/signup" class="button">Sign Up</a></li>
 						</ul>
 					</nav>
