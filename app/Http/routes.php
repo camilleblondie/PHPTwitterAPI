@@ -1,5 +1,10 @@
 <?php
 
+use Abraham\TwitterOAuth\TwitterOAuth;
+use Illuminate\Http\RedirectResponse;
+
+define('CONSUMER_KEY', getenv('CONSUMER_KEY'));
+define('CONSUMER_SECRET', getenv('CONSUMER_SECRET'));
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -25,4 +30,34 @@ $app->get('/dashboard', function() use ($app) {
 
 $app->get('/docs', function() use ($app) {
     return view('docs');
+});
+
+$app->get('/authorize', function() use ($app) {
+	session_start();
+	// callback from twitter
+	if (isset($_REQUEST['oauth_token']) && isset($_REQUEST['oauth_verifier'])) {
+		$request_token = [];
+		$request_token['oauth_token'] = $_SESSION['oauth_token'];
+		$request_token['oauth_token_secret'] = $_SESSION['oauth_token_secret'];
+		if ($request_token['oauth_token'] !== $_REQUEST['oauth_token']) {
+			// Abort! Something is wrong.
+		}
+		$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $request_token['oauth_token'], $request_token['oauth_token_secret']);
+		$access_token = $connection->oauth("oauth/access_token", array("oauth_verifier" => $_REQUEST['oauth_verifier']));
+		// saving access token
+		$_SESSION['access_token'] = $access_token;
+		// testing
+		$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token['oauth_token'], $access_token['oauth_token_secret']);
+		$user = $connection->get("account/verify_credentials");
+		return response()->json($user);
+	} else {
+		// generating request token
+		$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+		$request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => url('/authorize')));
+		$_SESSION['oauth_token'] = $request_token['oauth_token'];
+		$_SESSION['oauth_token_secret'] = $request_token['oauth_token_secret'];
+		// building twitter authorize url
+		$url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
+	    return redirect($url);
+	}
 });
