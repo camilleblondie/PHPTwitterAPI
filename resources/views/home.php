@@ -25,6 +25,7 @@
 							<li><a href="/">Home</a></li>
 							<li><a href="/docs">Docs</a></li>
 							<li><a href="/dashboard">Dashboard</a></li>
+							<li><a href="/login">Log in</a></li>
 							<li><a href="/signup" class="button">Sign Up</a></li>
 						</ul>
 					</nav>
@@ -36,8 +37,8 @@
 					<p>A simple API for Twitter. All you just need.</p>
 					<ul class="actions">
 						<li><a href="/signup" class="button special">Sign Up</a></li>
-<!-- 						<li><a href="#" class="button">Learn More</a></li>
- -->					</ul>
+						<li><a href="/login" class="button">Log in</a></li>
+					</ul>
 				</section>
 
 			<!-- Main -->
@@ -88,7 +89,7 @@
 								<h3 class="offer-title bronze">Bronze</h3>
 								<p>100 calls/day</p>
 								<ul class="actions">
-									<li><a href="/signup" class="button alt">Choose</a></li>
+									<li><a href="/signup?offer=bronze" class="button alt">Choose</a></li>
 								</ul>
 							</section>
 
@@ -102,7 +103,7 @@
 								<h3 class="offer-title silver">Silver</h3>
 								<p>600 calls/day</p>
 								<ul class="actions">
-									<li><a href="/signup" class="button alt">Choose</a></li>
+									<li><a href="/signup?offer=silver" class="button alt">Choose</a></li>
 								</ul>
 							</section>
 
@@ -116,7 +117,7 @@
 								<h3 class="offer-title gold">Gold</h3>
 								<p>1200 calls/day</p>
 								<ul class="actions">
-									<li><a href="/signup" class="button alt">Choose</a></li>
+									<li><a href="/signup?offer=gold" class="button alt">Choose</a></li>
 								</ul>
 							</section>
 

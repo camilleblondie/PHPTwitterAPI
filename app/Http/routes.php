@@ -18,6 +18,7 @@ $app->get('/', function() use ($app) {
 $app->get('/signup', function() use ($app) {
     return view('sign-up');
 });
+$app->post('/signup', 'App\Http\Controllers\UserController@createUser');
 
 $app->get('/dashboard', function() use ($app) {
     return view('dashboard');
@@ -26,3 +27,11 @@ $app->get('/dashboard', function() use ($app) {
 $app->get('/docs', function() use ($app) {
     return view('docs');
 });
+
+
+$app->get('/login', function() use ($app) {
+    return view('log-in');
+});
+$app->post('/login', 'App\Http\Controllers\UserController@loginUser');
+
+$app->get('/logout', 'App\Http\Controllers\UserController@logoutUser');

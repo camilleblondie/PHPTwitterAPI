@@ -31,11 +31,11 @@
 			<!-- Main -->
 				<section id="main" class="container 75%">
 					<header>
-						<h2>Sign Up</h2>
-						<p>Create an account to use PHPTwitterAPI.</p>
+						<h2>Log In</h2>
+						<p>Enter your email and password.</p>
 					</header>
 					<div class="box">
-						<form method="post" action="/signup">
+						<form method="post" action="/login">
 							<div class="row uniform">
 								<div class="12u">
 									<input type="email" name="email" id="email" value="" placeholder="Email" />
@@ -47,7 +47,7 @@
 							<div class="row uniform">
 								<div class="12u">
 									<ul class="actions align-center">
-										<li><input type="submit" value="Sign up!" /></li>
+										<li><input type="submit" value="Log in!" /></li>
 									</ul>
 								</div>
 							</div>

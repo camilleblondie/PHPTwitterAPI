@@ -25,6 +25,10 @@
 							<li><a href="/">Home</a></li>
 							<li><a href="/dashboard">Dashboard</a></li>
 							<li><a href="/docs">Docs</a></li>
+							<?php if(Auth::check()) : ?>
+							<li><a href="/logout">Log out</a></li>
+							<li><span>Logged in as <em><?php echo Auth::user()->username ?></em></span></li>
+							<?php endif; ?>
 						</ul>
 					</nav>
 				</header>
@@ -40,7 +44,7 @@
 								<h3>Your API Key</h3>
 								<p>Use it as a GET parameter in your calls</p>
 							</header>
-							<p><strong>ae45fe30ou6bdjkyt</strong></p>
+							<p><strong><?php echo Auth::user()->api_key ?></strong></p>
 						</section>
 
 						<section class="consumption">
