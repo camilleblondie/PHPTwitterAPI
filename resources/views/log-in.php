@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="/assets/css/custom.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
 	<body>
@@ -35,6 +36,7 @@
 						<p>Enter your email and password.</p>
 					</header>
 					<div class="box">
+					<p class="warning"><?php echo Session::get('message'); ?></p>
 						<form method="post" action="/login">
 							<div class="row uniform">
 								<div class="12u">

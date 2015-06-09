@@ -25,7 +25,7 @@
 							<li><a href="/">Home</a></li>
 							<li><a href="/dashboard">Dashboard</a></li>
 							<li><a href="/docs">Docs</a></li>
-							<?php if(Auth::check()) : ?>
+							<?php if (Auth::check()) : ?>
 							<li><a href="/logout">Log out</a></li>
 							<li><span>Logged in as <em><?php echo Auth::user()->username ?></em></span></li>
 							<?php endif; ?>
@@ -40,6 +40,9 @@
 					</header>
 					<div class="box">
 						<section class="api-key">
+							<?php if (Auth::user()->consumer_key == null && Auth::user()->secret_key == null) : ?>
+								<p class="warning">Warning! You haven't signed in with Twitter yet. This step is mandatory to use our API.</p>
+							<?php endif;?>
 							<header>
 								<h3>Your API Key</h3>
 								<p>Use it as a GET parameter in your calls</p>
@@ -54,7 +57,14 @@
 							</header>
 							<h4 class="offer">
 								<i class="fa fa-check"></i>
-								Your offer : <strong>Gold - 1200 calls/day</strong></h4>
+								Your offer : 
+								<?php if (Auth::user()->offer == 3) : ?>
+									<strong>Gold - 1200 calls/day</strong></h4>
+								<?php elseif (Auth::user()->offer == 2) : ?>
+									<strong>Silver - 600 calls/day</strong></h4>
+								<?php else : ?>
+									<strong>Bronze - 100 calls/day</strong></h4>
+								<?php endif; ?>
 							<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
 							<table>
 									<thead>

@@ -38,11 +38,17 @@
 						<form method="post" action="/signup">
 							<div class="row uniform">
 								<div class="12u">
+									<input type="text" name="username" id="username" value="" placeholder="Username" />
+								</div>
+								<div class="12u">
 									<input type="email" name="email" id="email" value="" placeholder="Email" />
 								</div>
 								<div class="12u">
 									<input type="password" name="password" id="password" value="" placeholder="Password" />
 								</div>
+								<?php if (strlen(Request::query("offer")) != 0) : ?>
+								<input type="hidden" name="offer" value="<?php echo Request::query('offer'); ?>" />
+								<?php endif; ?>
 							</div>
 							<div class="row uniform">
 								<div class="12u">

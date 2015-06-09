@@ -25,7 +25,9 @@
 							<li><a href="/">Home</a></li>
 							<li><a href="/docs">Docs</a></li>
 							<li><a href="/dashboard">Dashboard</a></li>
-							<li><a href="/login">Log in</a></li>
+							<?php if (Auth::check() == false) : ?>
+								<li><a href="/login">Log in</a></li>
+							<?php endif; ?>
 							<li><a href="/signup" class="button">Sign Up</a></li>
 						</ul>
 					</nav>
@@ -37,7 +39,9 @@
 					<p>A simple API for Twitter. All you just need.</p>
 					<ul class="actions">
 						<li><a href="/signup" class="button special">Sign Up</a></li>
-						<li><a href="/login" class="button">Log in</a></li>
+						<?php if (Auth::check() == false) : ?>
+							<li><a href="/login" class="button">Log in</a></li>
+						<?php endif; ?>
 					</ul>
 				</section>
 
