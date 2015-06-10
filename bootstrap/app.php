@@ -20,6 +20,8 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
+class_alias('Illuminate\Support\Facades\View', 'View');
+
 
 // $app->withEloquent();
 
@@ -63,9 +65,9 @@ $app->middleware([
 //	'Laravel\Lumen\Http\Middleware\VerifyCsrfToken',
 ]);
 
-// $app->routeMiddleware([
-
-// ]);
+$app->routeMiddleware([
+	'authMiddleware' => 'App\Http\Middleware\AuthMiddleware',
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -78,7 +80,7 @@ $app->middleware([
 |
 */
 
-// $app->register('App\Providers\AppServiceProvider');
+$app->register('App\Providers\ComposerServiceProvider');
 
 /*
 |--------------------------------------------------------------------------

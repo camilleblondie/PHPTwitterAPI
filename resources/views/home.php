@@ -24,11 +24,16 @@
 						<ul>
 							<li><a href="/">Home</a></li>
 							<li><a href="/docs">Docs</a></li>
-							<li><a href="/dashboard">Dashboard</a></li>
+							<?php if (Auth::check()) : ?>
+								<li><a href="/dashboard">Dashboard</a></li>
+							<?php endif; ?>
 							<?php if (Auth::check() == false) : ?>
 								<li><a href="/login">Log in</a></li>
 							<?php endif; ?>
 							<li><a href="/signup" class="button">Sign Up</a></li>
+							<?php if (Auth::check()) : ?>
+								<li><span>Logged in as <em><?php echo Auth::user()->username ?></em></span></li>
+							<?php endif; ?>
 						</ul>
 					</nav>
 				</header>

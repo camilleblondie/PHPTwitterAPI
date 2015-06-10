@@ -20,9 +20,9 @@ $app->get('/signup', function() use ($app) {
 });
 $app->post('/signup', 'App\Http\Controllers\UserController@createUser');
 
-$app->get('/dashboard', function() use ($app) {
+$app->get('/dashboard', ['middleware' => 'authMiddleware', function() use ($app) {
     return view('dashboard');
-});
+}]);
 
 $app->get('/docs', function() use ($app) {
     return view('docs');
