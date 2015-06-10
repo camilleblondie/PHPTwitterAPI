@@ -40,6 +40,11 @@ $app->post('/login', 'App\Http\Controllers\UserController@loginUser');
 
 $app->get('/logout', 'App\Http\Controllers\UserController@logoutUser');
 
+$app->get('/choose-offer', [
+    'middleware' => 'authMiddleware',
+    'uses' => 'App\Http\Controllers\UserController@chooseOffer'
+]);
+
 
 // Handling sign in with twitter
 $app->get('/authorize', function() use ($app) {

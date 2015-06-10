@@ -40,19 +40,29 @@
 					</header>
 					<div class="box">
 						<section class="api-key">
-							<?php if (Auth::user()->consumer_key == null && Auth::user()->secret_key == null) : ?>
+							<?php if (Auth::user()->offer == null) : ?>
+								<p class="warning">Warning! You haven't choose an offer yet, you cannot use our API until you do so. Click <a href="/choose-offer">here</a> to choose one.</p>
+							<?php endif; ?>
+							<?php if (Auth::user()->offer != null && Auth::user()->consumer_key == null && Auth::user()->secret_key == null) : ?>
 								<p class="warning">Warning! You haven't signed in with Twitter yet. This step is mandatory to use our API.
 								<a class="sign-in-twitter-button" href="/authorize"><img src="/images/sign-in-with-twitter-gray.png" /></a>
 								</p>
-
 							<?php endif;?>
+
 							<header>
 								<h3>Your API Key</h3>
 								<p>Use it as a GET parameter in your calls</p>
 							</header>
-							<p><strong><?php echo Auth::user()->api_key ?></strong></p>
+							<p><strong>
+							<?php if (Auth::user()->offer == null) : ?>
+								Choose an offer to get an API key. Click <a href="/choose-offer">here</a>.
+							<?php else : ?>
+								<?php echo Auth::user()->api_key; ?>
+							<?php endif; ?>
+							</strong></p>
 						</section>
 
+						<?php if (Auth::user()->offer != null) : ?>
 						<section class="consumption">
 							<header>
 								<h3>Your stats</h3>
@@ -110,6 +120,7 @@
 								</table>
 							</div>
 						</section>
+						<?php endif; ?>
 					</div>
 				</section>
 
