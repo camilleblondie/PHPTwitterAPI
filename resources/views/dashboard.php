@@ -25,6 +25,10 @@
 							<li><a href="/">Home</a></li>
 							<li><a href="/dashboard">Dashboard</a></li>
 							<li><a href="/docs">Docs</a></li>
+							<?php if (Auth::check()) : ?>
+							<li><a href="/logout">Log out</a></li>
+							<li><span>Logged in as <em><?php echo Auth::user()->username ?></em></span></li>
+							<?php endif; ?>
 						</ul>
 					</nav>
 				</header>
@@ -36,11 +40,14 @@
 					</header>
 					<div class="box">
 						<section class="api-key">
+							<?php if (Auth::user()->consumer_key == null && Auth::user()->secret_key == null) : ?>
+								<p class="warning">Warning! You haven't signed in with Twitter yet. This step is mandatory to use our API.</p>
+							<?php endif;?>
 							<header>
 								<h3>Your API Key</h3>
 								<p>Use it as a GET parameter in your calls</p>
 							</header>
-							<p><strong>ae45fe30ou6bdjkyt</strong></p>
+							<p><strong><?php echo Auth::user()->api_key ?></strong></p>
 						</section>
 
 						<section class="consumption">
@@ -50,8 +57,17 @@
 							</header>
 							<h4 class="offer">
 								<i class="fa fa-check"></i>
-								Your offer : <strong>Gold - 1200 calls/day</strong></h4>
+								Your offer : 
+								<?php if (Auth::user()->offer == 3) : ?>
+									<strong>Gold - 1200 calls/day</strong></h4>
+								<?php elseif (Auth::user()->offer == 2) : ?>
+									<strong>Silver - 600 calls/day</strong></h4>
+								<?php else : ?>
+									<strong>Bronze - 100 calls/day</strong></h4>
+								<?php endif; ?>
 							<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
+
+							<p>Today's consumption : <strong><?php echo $metricsForTodayCount; ?></strong> calls</p>
 							<table>
 									<thead>
 										<tr>
@@ -60,22 +76,12 @@
 										</tr>
 									</thead>
 									<tbody>
+									<?php foreach ($metricsCountGroupedByDay as $metric) : ?>
 										<tr>
-											<td>07/06/15</td>
-											<td>67</td>
+											<td><?php echo $metric->date; ?></td>
+											<td><?php echo $metric->total; ?></td>
 										</tr>
-										<tr>
-											<td>07/06/15</td>
-											<td>88</td>
-										</tr>
-										<tr>
-											<td>07/06/15</td>
-											<td>76</td>
-										</tr>
-										<tr>
-											<td>07/06/15</td>
-											<td>54</td>
-										</tr>
+									<?php endforeach; ?>
 									</tbody>
 								</table>
 
@@ -90,26 +96,13 @@
 										</tr>
 									</thead>
 									<tbody>
+									<?php foreach ($metricsGroupedByDay as $metric) : ?>
 										<tr>
-											<td>GET</td>
-											<td>/api/favorites</td>
-											<td>07/06/15</td>
+											<td><?php echo $metric->http_method; ?></td>
+											<td><?php echo $metric->http_route; ?></td>
+											<td><?php echo $metric->date; ?></td>
 										</tr>
-										<tr>
-											<td>GET</td>
-											<td>/api/followers</td>
-											<td>07/06/15</td>
-										</tr>
-										<tr>
-											<td>GET</td>
-											<td>/api/users/1</td>
-											<td>07/06/15</td>
-										</tr>
-										<tr>
-											<td>POST</td>
-											<td>/api/status/3</td>
-											<td>07/06/15</td>
-										</tr>
+									<?php endforeach; ?>
 									</tbody>
 								</table>
 							</div>

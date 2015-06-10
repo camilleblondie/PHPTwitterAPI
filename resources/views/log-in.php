@@ -11,6 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="/assets/css/custom.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
 	<body>
@@ -31,29 +32,24 @@
 			<!-- Main -->
 				<section id="main" class="container 75%">
 					<header>
-						<h2>Sign Up</h2>
-						<p>Create an account to use PHPTwitterAPI.</p>
+						<h2>Log In</h2>
+						<p>Enter your email and password.</p>
 					</header>
 					<div class="box">
-						<form method="post" action="/signup">
+					<p class="warning"><?php echo Session::get('message'); ?></p>
+						<form method="post" action="/login">
 							<div class="row uniform">
-								<div class="12u">
-									<input type="text" name="username" id="username" value="" placeholder="Username" />
-								</div>
 								<div class="12u">
 									<input type="email" name="email" id="email" value="" placeholder="Email" />
 								</div>
 								<div class="12u">
 									<input type="password" name="password" id="password" value="" placeholder="Password" />
 								</div>
-								<?php if (strlen(Request::query("offer")) != 0) : ?>
-								<input type="hidden" name="offer" value="<?php echo Request::query('offer'); ?>" />
-								<?php endif; ?>
 							</div>
 							<div class="row uniform">
 								<div class="12u">
 									<ul class="actions align-center">
-										<li><input type="submit" value="Sign up!" /></li>
+										<li><input type="submit" value="Log in!" /></li>
 									</ul>
 								</div>
 							</div>
