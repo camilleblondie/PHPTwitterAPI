@@ -20,10 +20,9 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->withFacades();
-class_alias('Illuminate\Support\Facades\View', 'View');
-
-
 // $app->withEloquent();
+
+class_alias('Illuminate\Support\Facades\View', 'View');
 
 /*
 |--------------------------------------------------------------------------
