@@ -63,7 +63,7 @@ $app->get('/authorize', function() use ($app) {
         $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
         $request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => url('/authorize')));
         Session::put('oauth_token', $request_token['oauth_token']);
-        Session:put('oauth_token_secret', $request_token['oauth_token_secret']);
+        Session::put('oauth_token_secret', $request_token['oauth_token_secret']);
         // redirecting to twitter
         $url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
         return redirect($url);
