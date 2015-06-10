@@ -41,7 +41,10 @@
 					<div class="box">
 						<section class="api-key">
 							<?php if (Auth::user()->consumer_key == null && Auth::user()->secret_key == null) : ?>
-								<p class="warning">Warning! You haven't signed in with Twitter yet. This step is mandatory to use our API.</p>
+								<p class="warning">Warning! You haven't signed in with Twitter yet. This step is mandatory to use our API.
+								<a class="sign-in-twitter-button" href="/authorize"><img src="/images/sign-in-with-twitter-gray.png" /></a>
+								</p>
+
 							<?php endif;?>
 							<header>
 								<h3>Your API Key</h3>
