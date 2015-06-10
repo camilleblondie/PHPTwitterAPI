@@ -23,6 +23,7 @@ $app->withFacades();
 // $app->withEloquent();
 
 class_alias('Illuminate\Support\Facades\View', 'View');
+class_alias('App\Http\Controllers\UserController', 'User');
 
 /*
 |--------------------------------------------------------------------------

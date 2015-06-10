@@ -5,6 +5,7 @@ use DB;
 use Request;
 use Hash;
 use Auth;
+use Session;
 
 class UserController extends BaseController
 {
@@ -50,6 +51,8 @@ class UserController extends BaseController
 	public function loginUser()
 	{
 		if (Auth::attempt(Request::only('email', 'password'))) {
+			$api_key = DB::select('SELECT api_key FROM users WHERE id = ?', [ Auth::user()->id ]);
+			Session::put('access_token', json_decode($api_key[0]->api_key, true));
 			return redirect('dashboard');
 		}
 		else {
@@ -61,7 +64,14 @@ class UserController extends BaseController
 	{
 		if (Auth::check()) {
 			Auth::logout();
-			return redirect('/');
+			Session::flush();
 		}
+		return redirect('/');
+	}
+
+	public static function updateAccessToken($access_token)
+	{
+		DB::update('UPDATE users SET api_key = ? WHERE id = ?',
+				[ json_encode($access_token), Auth::user()->id ]);
 	}
 }
