@@ -35,69 +35,173 @@
 						<h2>PHPTwitterAPI Docs</h2>
 					</header>
 					<div class="box row uniform">
-							<div class="5u 12u">
-								<ul class="nav nav-pills nav-stacked">
-									<li class="active">
-										<a href="#getFollowers" aria-controls="getFollowers" data-toggle="pill">
-										GET /api/followers
-										</a>
-									</li>
-									<li>
-										<a href="#followings" aria-controls="followings" data-toggle="pill">
-										GET /api/followings
-										</a>
-									</li>
-									<li>
-										<a href="#status" aria-controls="messages"  data-toggle="pill">
-										GET /api/status
-										</a>
-									</li>
-								</ul>
-							</div>
+						<div class="5u 12u">
+							<ul class="nav nav-pills nav-stacked">
+								<li class="active">
+									<a href="#1" aria-controls="1" data-toggle="pill">
+									GET /api/tweet/:id
+									</a>
+								</li>
+								<li>
+									<a href="#2" aria-controls="2" data-toggle="pill">
+									GET /api/tweets/:screen_name
+									</a>
+								</li>
+								<li>
+									<a href="#3" aria-controls="3"  data-toggle="pill">
+									GET /api/favorites
+									</a>
+								</li>
+								<li>
+									<a href="#4" aria-controls="4"  data-toggle="pill">
+									GET /api/followers
+									</a>
+								</li>
+								<li>
+									<a href="#5" aria-controls="5"  data-toggle="pill">
+									GET /api/followings
+									</a>
+								</li>
+								<li>
+									<a href="#6" aria-controls="6"  data-toggle="pill">
+									POST /api/retweet
+									</a>
+								</li>
+								<li>
+									<a href="#7" aria-controls="7"  data-toggle="pill">
+									POST /api/tweet
+									</a>
+								</li>
+								<li>
+									<a href="#8" aria-controls="8"  data-toggle="pill">
+									DELETE /api/tweet/:id
+									</a>
+								</li>
+							</ul>
+						</div>
 
-							<div class="tab-content 7u 12u">
-								<div role="tabpanel" class="tab-pane active" id="getFollowers">
-									<h4>Parameters :</h4>
-									<table>
-										<tbody>
-											<tr>
-												<td>userId</td>
-												<td>Id of the user</td>
-											</tr>
-											<tr>
-												<td>limit</td>
-												<td>Max number of followers returned</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div role="tabpanel" class="tab-pane" id="followings">
-									<h4>Parameters :</h4>
-									<table>
-										<tbody>
-											<tr>
-												<td>userId</td>
-												<td>Id of the user</td>
-											</tr>
-											<tr>
-												<td>limit</td>
-												<td>Max number of followers returned</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div role="tabpanel" class="tab-pane" id="status">
-									<h4>Parameters :</h4>
-									<table>
-										<tbody>
-											<tr>
-												<td>id</td>
-												<td>Id of the status</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+						<div class="tab-content 7u 12u">
+							<div role="tabpanel" class="tab-pane active" id="1">
+								<h3>GET /api/tweet/:id</h3>
+								<h4>Parameters :</h4>
+								<table>
+									<tbody>
+										<tr>
+											<td>id</td>
+											<td>Id of the user</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
+							<div role="tabpanel" class="tab-pane" id="2">
+								<h3>GET /api/tweets/:screen_name</h3>
+								<h4>Parameters :</h4>
+								<table>
+									<tbody>
+										<tr>
+											<td>screen_name</td>
+											<td>Name of the user (e.g. for @flmgt, screen_name is flmgt)</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="3">
+								<h3>GET /api/favorites</h3>
+								<h4>Parameters :</h4>
+								<table>
+									<tbody>
+										<tr>
+											<td>screen_name</td>
+											<td>Name of the user</td>
+										</tr>
+										<tr>
+											<td>user_id</td>
+											<td>Id of the user</td>
+										</tr>
+										<tr>
+											<td>count</td>
+											<td>Limit of the favorites to get. Default to 10.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="4">
+								<h3>GET /api/followers</h3>
+								<h4>Parameters :</h4>
+								<table>
+									<tbody>
+										<tr>
+											<td>screen_name</td>
+											<td>Name of the user</td>
+										</tr>
+										<tr>
+											<td>user_id</td>
+											<td>Id of the user</td>
+										</tr>
+										<tr>
+											<td>count</td>
+											<td>Limit of the favorites to get. Default to 10.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="5">
+								<h3>GET /api/followings</h3>
+								<h4>Parameters :</h4>
+								<table>
+									<tbody>
+										<tr>
+											<td>screen_name</td>
+											<td>Name of the user</td>
+										</tr>
+										<tr>
+											<td>user_id</td>
+											<td>Id of the user</td>
+										</tr>
+										<tr>
+											<td>count</td>
+											<td>Limit of the favorites to get. Default to 10.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="6">
+								<h3>POST /api/retweet</h3>
+								<h4>Parameters :</h4>
+								<table>
+									<tbody>
+										<tr>
+											<td>id</td>
+											<td>Id of the tweet to be retweeted</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="7">
+								<h3>POST /api/tweet</h3>
+								<h4>Parameters :</h4>
+								<table>
+									<tbody>
+										<tr>
+											<td>status</td>
+											<td>Text of the tweet to post</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="8">
+								<h3>DELETE /api/tweet/:id</h3>
+								<h4>Parameters :</h4>
+								<table>
+									<tbody>
+										<tr>
+											<td>id</td>
+											<td>Id of the tweet to delete</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 				</section>
 

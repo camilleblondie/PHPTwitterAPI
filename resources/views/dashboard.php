@@ -78,25 +78,12 @@
 								<?php else : ?>
 									<strong>Bronze - 100 calls/day</strong></h4>
 								<?php endif; ?>
-							<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
-
-							<p>Today's consumption : <strong><?php echo $metricsForTodayCount; ?></strong> calls</p>
-							<table>
-									<thead>
-										<tr>
-											<th>Date</th>
-											<th>Total</th>
-										</tr>
-									</thead>
-									<tbody>
-									<?php foreach ($metricsCountGroupedByDay as $metric) : ?>
-										<tr>
-											<td><?php echo $metric->date; ?></td>
-											<td><?php echo $metric->total; ?></td>
-										</tr>
-									<?php endforeach; ?>
-									</tbody>
-								</table>
+							<section class="total-consumption">
+								<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
+								<p>Today's consumption : <strong><?php echo $metricsForTodayCount; ?></strong> calls</p>
+								
+								<canvas id="myChart" width="900" height="400"></canvas>
+							</section>
 
 							<h4><i class="fa fa-history"></i>  Call history</h4>
 							<div class="table-wrapper">
@@ -149,6 +136,28 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/Chart.js"></script>
+
+			<script type="text/javascript">
+				var data = {
+					labels:[ <?php foreach ($metricsCountGroupedByDay as $metric) { echo '"', $metric->date, '"', ','; } ?> ],
+					datasets: [
+						{
+							label: "My First dataset",
+							fillColor: "rgba(220,220,220,0.2)",
+							strokeColor: "rgba(220,220,220,1)",
+							pointColor: "rgba(220,220,220,1)",
+							pointStrokeColor: "#fff",
+							pointHighlightFill: "#fff",
+							pointHighlightStroke: "rgba(220,220,220,1)",
+							data: [ <?php foreach ($metricsCountGroupedByDay as $metric) { echo $metric->total, ','; } ?> ]
+						}
+					]
+				};
+				var options = {};
+				var ctx = document.getElementById("myChart").getContext("2d");
+				var myLineChart = new Chart(ctx).Line(data, options);
+			</script>
 
 	</body>
 </html>
