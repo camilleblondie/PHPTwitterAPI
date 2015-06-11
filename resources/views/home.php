@@ -23,15 +23,16 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="/">Home</a></li>
-							<li><a href="/docs">Docs</a></li>
 							<?php if (Auth::check()) : ?>
 								<li><a href="/dashboard">Dashboard</a></li>
 							<?php endif; ?>
+							<li><a href="/docs">Docs</a></li>
 							<?php if (Auth::check() == false) : ?>
 								<li><a href="/login">Log in</a></li>
+								<li><a href="/signup" class="button">Sign Up</a></li>
 							<?php endif; ?>
-							<li><a href="/signup" class="button">Sign Up</a></li>
 							<?php if (Auth::check()) : ?>
+								<li><a href="/logout">Log out</a></li>
 								<li><span>Logged in as <em><?php echo Auth::user()->username ?></em></span></li>
 							<?php endif; ?>
 						</ul>
@@ -133,15 +134,11 @@
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">
-						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+						<li class="footer-label"><span class="label">Visit our GitHub</span></li>
+						<li><a href="http://github.com/camilleblondie/PHPTwitterAPI" class="icon fa-github"><span class="label">Github</span></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; PHPTwitterAPI. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 				</footer>
 
