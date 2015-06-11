@@ -69,17 +69,12 @@
 						</header>
 						<div class="10u 12u usage-example">
 							<span>GET request</span>
-							<pre>GET /api/favorites/:userId</pre>
+							<pre>GET /tweets/:screen_name</pre>
 							<span>JSON response</span>
 							<pre>
 [
-  {
-		"id": 123456,
-		"hashtags": [ "#yolo", "#swag" ],
-		"text": "Super cool Twitter API",
-		"retweet_count": 0,
-		"created_at": "Sat May 09 17:58:22 +0000 2009",
-  }
+  {"text": "example of tweet 1"},
+  {"text": "second example of tweet"}
 ]
 							</pre>
 						</div>
