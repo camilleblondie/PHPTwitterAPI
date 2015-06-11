@@ -51,8 +51,6 @@ class UserController extends BaseController
 	public function loginUser()
 	{
 		if (Auth::attempt(Request::only('email', 'password'))) {
-			$api_key = DB::select('SELECT api_key FROM users WHERE id = ?', [ Auth::user()->id ]);
-			Session::put('access_token', json_decode($api_key[0]->api_key, true));
 			return redirect('dashboard');
 		}
 		else {
@@ -64,14 +62,13 @@ class UserController extends BaseController
 	{
 		if (Auth::check()) {
 			Auth::logout();
-			Session::flush();
 		}
 		return redirect('/');
 	}
 
 	public static function updateAccessToken($access_token)
 	{
-		DB::update('UPDATE users SET api_key = ? WHERE id = ?',
-				[ json_encode($access_token), Auth::user()->id ]);
+		DB::update('UPDATE users SET consumer_key = ?, secret_key = ? WHERE id = ?',
+				[ $access_token['oauth_token'], $access_token['oauth_token_secret'], Auth::user()->id ]);
 	}
 }

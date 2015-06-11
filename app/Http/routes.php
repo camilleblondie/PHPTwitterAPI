@@ -40,9 +40,8 @@ $app->post('/login', 'App\Http\Controllers\UserController@loginUser');
 
 $app->get('/logout', 'App\Http\Controllers\UserController@logoutUser');
 
-
 // Handling sign in with twitter
-$app->get('/authorize', function() use ($app) {
+$app->get('/authorize', ['middleware' => 'authMiddleware', function() use ($app) {
     // callback from twitter
     if (isset($_REQUEST['oauth_token']) && isset($_REQUEST['oauth_verifier'])) {
         $request_token = [];
@@ -55,7 +54,6 @@ $app->get('/authorize', function() use ($app) {
             $request_token['oauth_token'], $request_token['oauth_token_secret']);
         $access_token = $connection->oauth("oauth/access_token", array("oauth_verifier" => $_REQUEST['oauth_verifier']));
         // saving access token
-        Session::put('access_token', $access_token);
         User::updateAccessToken($access_token);
         return redirect(url('/dashboard'));
     } else {
@@ -68,31 +66,23 @@ $app->get('/authorize', function() use ($app) {
         $url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
         return redirect($url);
     }
-});
+}]);
 
-// GET /tweet/:id
-$app->get('/tweet/{id}', function($id) {
-    if (Session::has('access_token'))
-    {
-        $access_token = Session::get('access_token');
-        $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET,
-            $access_token['oauth_token'], $access_token['oauth_token_secret']);
+$app->group(['prefix' => 'api', 'middleware' => 'apiBeforeMiddleware'], function () use ($app) {
+
+    // GET /tweet/:id
+    $app->get('/tweet/{id}', function($id) {
+        $connection = Request::get('connection');
         $status = $connection->get("statuses/show", array("id" => $id));
         if ($connection->getLastHttpCode() == 200)
             return response()->json(['text' => $status->text]);
         else
             return response()->json(['error' => 'This tweet does not exist.']);
-    }
-    return redirect(url('/'));
-});
+    });
 
-// GET /tweets/:screen_name
-$app->get('/tweets/{screen_name}', function($screen_name) {
-    if (Session::has('access_token'))
-    {
-        $access_token = Session::get('access_token');
-        $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET,
-            $access_token['oauth_token'], $access_token['oauth_token_secret']);
+    // GET /tweets/:screen_name
+    $app->get('/tweets/{screen_name}', function($screen_name) {
+        $connection = Request::get('connection');
         $statuses = $connection->get("statuses/user_timeline", array("screen_name" => $screen_name));
         if ($connection->getLastHttpCode() == 200) {
             $tweets = [];
@@ -101,23 +91,19 @@ $app->get('/tweets/{screen_name}', function($screen_name) {
             return response()->json($tweets);
         }
         else
-            return response()->json(['error' => 'This tweet does not exist.']);     
-    }
-    return redirect(url('/'));
-});
+            return response()->json(['error' => 'This tweet does not exist.']);
+    });
 
-// GET /favorites
-$app->get('/favorites', function() {
-    if (Session::has('access_token'))
-    {
+    // GET /favorites
+    $app->get('/favorites', function() {
         if (!Request::has('screen_name') && !Request::has('user_id'))
             return response()->json(['error' => 'This user does not exist']);
-        $access_token = Session::get('access_token');
-        $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET,
-            $access_token['oauth_token'], $access_token['oauth_token_secret']);
+
+        $connection = Request::get('connection');
         $screen_name = Request::input('screen_name', '');
         $user_id = Request::input('user_id', '');
         $count = Request::input('count', '10');
+
         if (Request::has('screen_name'))
             $statuses = $connection->get("favorites/list", array("screen_name" => $screen_name, "count" => $count));
         else
@@ -130,19 +116,13 @@ $app->get('/favorites', function() {
         }
         else
             return response()->json(['error' => 'This user does not exist']);
-    }
-    return redirect(url('/'));
-});
+    });
 
-// GET /followers
-$app->get('/followers', function() {
-    if (Session::has('access_token'))
-    {
+    // GET /followers
+    $app->get('/followers', function() {
         if (!Request::has('screen_name') && !Request::has('user_id'))
             return response()->json(['error' => 'This user does not exist']);
-        $access_token = Session::get('access_token');
-        $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET,
-            $access_token['oauth_token'], $access_token['oauth_token_secret']);
+        $connection = Request::get('connection');
         $screen_name = Request::input('screen_name', '');
         $user_id = Request::input('user_id', '');
         $count = Request::input('count', '10');
@@ -158,19 +138,13 @@ $app->get('/followers', function() {
         }
         else
             return response()->json(['error' => 'This user does not exist']);
-    }
-    return redirect(url('/'));
-});
+    });
 
-// GET /followings
-$app->get('/followings', function() {
-    if (Session::has('access_token'))
-    {
+    // GET /followings
+    $app->get('/followings', function() {
         if (!Request::has('screen_name') && !Request::has('user_id'))
             return response()->json(['error' => 'This user does not exist']);
-        $access_token = Session::get('access_token');
-        $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET,
-            $access_token['oauth_token'], $access_token['oauth_token_secret']);
+        $connection = Request::get('connection');
         $screen_name = Request::input('screen_name', '');
         $user_id = Request::input('user_id', '');
         $count = Request::input('count', '10');
@@ -186,6 +160,6 @@ $app->get('/followings', function() {
         }
         else
             return response()->json(['error' => 'This user does not exist']);
-    }
-    return redirect(url('/'));
+    });
+
 });
