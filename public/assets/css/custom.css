@@ -71,6 +71,10 @@
   vertical-align: bottom;
 }
 
+.total-consumption {
+  margin-bottom: 30px;
+}
+
 /* API DOCS */
 .nav {
   padding-left: 0;
