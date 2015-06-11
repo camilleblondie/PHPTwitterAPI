@@ -1,8 +1,9 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
-class ExampleMiddleware {
+class AuthMiddleware {
 
     /**
      * Handle an incoming request.
@@ -13,6 +14,9 @@ class ExampleMiddleware {
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::check() == false) {
+            return redirect('/');
+        }
         return $next($request);
     }
 

@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-// Dotenv::load(__DIR__.'/../');
+Dotenv::load(__DIR__.'/../');
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +19,11 @@ $app = new Laravel\Lumen\Application(
 	realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
-
+$app->withFacades();
 // $app->withEloquent();
+
+class_alias('Illuminate\Support\Facades\View', 'View');
+class_alias('App\Http\Controllers\UserController', 'User');
 
 /*
 |--------------------------------------------------------------------------
@@ -55,17 +57,19 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//     // 'Illuminate\Cookie\Middleware\EncryptCookies',
-//     // 'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-//     // 'Illuminate\Session\Middleware\StartSession',
-//     // 'Illuminate\View\Middleware\ShareErrorsFromSession',
-//     // 'Laravel\Lumen\Http\Middleware\VerifyCsrfToken',
-// ]);
+$app->middleware([
+	'Illuminate\Cookie\Middleware\EncryptCookies',
+	'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
+	'Illuminate\Session\Middleware\StartSession',
+	'Illuminate\View\Middleware\ShareErrorsFromSession',
+//	'Laravel\Lumen\Http\Middleware\VerifyCsrfToken',
+]);
 
-// $app->routeMiddleware([
-
-// ]);
+$app->routeMiddleware([
+	'authMiddleware' => 'App\Http\Middleware\AuthMiddleware',
+	'apiBeforeMiddleware' => 'App\Http\Middleware\ApiBeforeMiddleware',
+	'logMiddleware' => 'App\Http\Middleware\LogMiddleware',
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -78,7 +82,7 @@ $app->singleton(
 |
 */
 
-// $app->register('App\Providers\AppServiceProvider');
+$app->register('App\Providers\ComposerServiceProvider');
 
 /*
 |--------------------------------------------------------------------------
