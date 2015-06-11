@@ -76,6 +76,31 @@ $app->get('/authorize', ['middleware' => 'authMiddleware', function() use ($app)
 
 $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMiddleware']], function () use ($app) {
 
+    // POST /tweet
+    $app->post('/tweet', function(){
+        if (Request::has('status'))
+        {
+            $connection = Request::get('connection');
+            $status = $connection->post("statuses/update", array("status" => Request::get('status')));
+            if ($connection->getLastHttpCode() == 200)
+                return response()->json(['id' => $status->id]);
+            else
+                return response()->json(['error' => 'Tweet is exceeding 140 characters']);
+        }
+        else
+            return response()->json(['error' => 'Please specify a status parameter.']);
+    });
+
+    // DELETE /tweet/:id
+    $app->delete('/tweet/{id}', function($id) {
+        $connection = Request::get('connection');
+        $status = $connection->post("statuses/destroy", array("id" => $id));
+        if ($connection->getLastHttpCode() == 200)
+            return response()->json(['text' => 'Tweet was successfully deleted']);
+        else
+            return response()->json(['error' => 'This tweet does not exist.']);
+    });
+
     // GET /tweet/:id
     $app->get('/tweet/{id}', function($id) {
         $connection = Request::get('connection');
