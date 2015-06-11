@@ -68,6 +68,7 @@ $app->middleware([
 $app->routeMiddleware([
 	'authMiddleware' => 'App\Http\Middleware\AuthMiddleware',
 	'apiBeforeMiddleware' => 'App\Http\Middleware\ApiBeforeMiddleware',
+	'logMiddleware' => 'App\Http\Middleware\LogMiddleware',
 ]);
 
 /*

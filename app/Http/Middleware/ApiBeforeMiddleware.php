@@ -17,6 +17,10 @@ class ApiBeforeMiddleware {
      */
     public function handle($request, Closure $next)
     {
+        /*DB::select('SELECT count(*) FROM metrics WHERE user_id = :user_id
+                    AND date >= CAST(CURDATE() as DATETIME) AND date <= CAST(CURDATE() as DATETIME) + INTERVAL 1 DAY ',
+                    ['user_id' => Auth::user()->id]);*/
+
         $result = DB::select('SELECT consumer_key, secret_key FROM users WHERE api_key = ?',
                 [ $request->input('api_key') ]);
         if (empty($result))

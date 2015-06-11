@@ -36,6 +36,7 @@ $app->get('/docs', function() use ($app) {
 $app->get('/login', function() use ($app) {
     return view('log-in');
 });
+
 $app->post('/login', 'App\Http\Controllers\UserController@loginUser');
 
 $app->get('/logout', 'App\Http\Controllers\UserController@logoutUser');
@@ -68,7 +69,7 @@ $app->get('/authorize', ['middleware' => 'authMiddleware', function() use ($app)
     }
 }]);
 
-$app->group(['prefix' => 'api', 'middleware' => 'apiBeforeMiddleware'], function () use ($app) {
+$app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMiddleware']], function () use ($app) {
 
     // GET /tweet/:id
     $app->get('/tweet/{id}', function($id) {
