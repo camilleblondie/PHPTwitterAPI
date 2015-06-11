@@ -62,6 +62,14 @@
   color: red;
 }
 
+.sign-in-twitter-button {
+  border-bottom: none;
+  padding-left: 15px;
+}
+
+.sign-in-twitter-button img {
+  vertical-align: bottom;
+}
 
 /* API DOCS */
 .nav {
