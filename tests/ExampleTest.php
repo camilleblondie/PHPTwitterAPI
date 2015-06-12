@@ -33,6 +33,7 @@ class ExampleTest extends TestCase {
         $this->assertEquals($respJson, $respTest);
     }
 
+
     public function test_not_existing_user()
     {
         $response = $this->call('GET', '/api/followers?api_key=5579bec3f0432&screen_name=eradsic_reptsadsadile');
