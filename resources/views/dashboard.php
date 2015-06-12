@@ -72,12 +72,14 @@
 								<i class="fa fa-check"></i>
 								Your offer : 
 								<?php if (Auth::user()->offer == 3) : ?>
-									<strong>Gold - 1200 calls/day</strong></h4>
+									<strong>Gold - 1200 calls/day</strong>
 								<?php elseif (Auth::user()->offer == 2) : ?>
-									<strong>Silver - 600 calls/day</strong></h4>
+									<strong>Silver - 600 calls/day</strong>
 								<?php else : ?>
-									<strong>Bronze - 100 calls/day</strong></h4>
+									<strong>Bronze - 100 calls/day</strong>
 								<?php endif; ?>
+							<a class="button special small change-offer-button" href="/choose-offer?change=1">Change offer</a>
+							</h4>
 							<section class="total-consumption">
 								<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
 								<p>Today's consumption : <strong><?php echo $metricsForTodayCount; ?></strong> calls</p>

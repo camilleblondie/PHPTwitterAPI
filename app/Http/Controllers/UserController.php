@@ -83,8 +83,14 @@ class UserController extends BaseController
 			else {
 				DB::update('UPDATE users SET offer = 1 WHERE id = ?', [Auth::user()->id]);
 			}
-			DB::update('UPDATE users SET api_key = ? WHERE id = ?', [uniqid(), Auth::user()->id]);
+
+			if (Request::has('change') == false) {
+				DB::update('UPDATE users SET api_key = ? WHERE id = ?', [uniqid(), Auth::user()->id]);
+			}
 			return redirect('/dashboard');
+		}
+		elseif (Request::query('change') == 1) {
+			return view('choose-offer'); 
 		}
 		else {
 			return view('choose-offer');

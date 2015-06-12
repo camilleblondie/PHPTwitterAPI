@@ -75,6 +75,10 @@
   margin-bottom: 30px;
 }
 
+.change-offer-button {
+  margin-left: 15px;
+}
+
 /* API DOCS */
 .nav {
   padding-left: 0;
