@@ -92,7 +92,8 @@
 									<h2 class="price">Free</h2>
 								</span>
 								<h3 class="offer-title bronze">Bronze</h3>
-								<p>100 calls/day</p>
+								<h4>100 calls/day</h4>
+								<p>With a maximum value of 15 requests every 15 minutes</p>
 								<ul class="actions">
 									<li><a href="/signup?offer=bronze" class="button alt">Choose</a></li>
 								</ul>
@@ -106,7 +107,8 @@
 									<h2 class="price">30$/month</h2>
 								</span>
 								<h3 class="offer-title silver">Silver</h3>
-								<p>600 calls/day</p>
+								<h4>600 calls/day</h4>
+								<p>With a maximum value of 15 requests every 15 minutes</p>
 								<ul class="actions">
 									<li><a href="/signup?offer=silver" class="button alt">Choose</a></li>
 								</ul>
@@ -120,7 +122,8 @@
 									<h2 class="price">50$/month</h2>
 								</span>
 								<h3 class="offer-title gold">Gold</h3>
-								<p>1200 calls/day</p>
+								<h4>1200 calls/day</h4>
+								<p>With a maximum value of 15 requests every 15 minutes</p>
 								<ul class="actions">
 									<li><a href="/signup?offer=gold" class="button alt">Choose</a></li>
 								</ul>
