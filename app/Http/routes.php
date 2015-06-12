@@ -88,15 +88,25 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
                 return response()->json(['error' => 'Tweet is exceeding 140 characters']);
         }
         else
-            return response()->json(['error' => 'Please specify a status parameter.']);
+            return response()->json(['error' => 'Please specify a "status" parameter.']);
     });
 
     // DELETE /tweet/:id
     $app->delete('/tweet/{id}', function($id) {
         $connection = Request::get('connection');
-        $status = $connection->post("statuses/destroy", array("id" => $id));
+        $status = $connection->post("statuses/destroy/".$id);
         if ($connection->getLastHttpCode() == 200)
-            return response()->json(['text' => 'Tweet was successfully deleted']);
+            return response()->json(['id' => $status->id]);
+        else
+            return response()->json(['error' => 'This tweet does not exist.']);
+    });
+
+    // POST /retweet/:id
+    $app->post('/retweet/{id}', function($id){
+        $connection = Request::get('connection');
+        $status = $connection->post("statuses/retweet/".$id);
+        if ($connection->getLastHttpCode() == 200)
+            return response()->json(['id' => $status->id]);
         else
             return response()->json(['error' => 'This tweet does not exist.']);
     });
@@ -193,4 +203,21 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
             return response()->json(['error' => 'This user does not exist']);
     });
 
+    // GET /search
+    $app->get('/search', function() {
+        if (!Request::has('query'))
+            return response()->json(['error' => 'Please specify a "query" parameter']);
+        $connection = Request::get('connection');
+        $query = Request::input('query', '');
+        $count = Request::input('count', '10');
+        $statuses_list = $connection->get("search/tweets", array("q" => $query, "count" => $count));
+        if ($connection->getLastHttpCode() == 200) {
+            $statuses = [];
+            foreach ($statuses_list->statuses as $status)
+                array_push($statuses, ['text' => $status->text]);
+            return response()->json($statuses);
+        }
+        else
+            return response()->json(['error' => $connection->getLastHttpCode()]);
+    });
 });
