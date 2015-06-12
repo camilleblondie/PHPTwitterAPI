@@ -44,7 +44,11 @@
 								<h3 class="offer-title bronze">Bronze</h3>
 								<p>100 calls/day</p>
 								<ul class="actions">
-									<li><a href="/choose-offer?offer=bronze" class="button alt">Choose</a></li>
+									<?php if (Request::query('change') == 1) : ?>
+										<li><a href="/choose-offer?change=1&amp;offer=bronze" class="button alt">Choose</a></li>
+									<?php else : ?>
+										<li><a href="/choose-offer?offer=bronze" class="button alt">Choose</a></li>
+									<?php endif; ?>
 								</ul>
 							</section>
 
@@ -58,7 +62,11 @@
 								<h3 class="offer-title silver">Silver</h3>
 								<p>600 calls/day</p>
 								<ul class="actions">
-									<li><a href="/choose-offer?offer=silver" class="button alt">Choose</a></li>
+									<?php if (Request::query('change') == 1) : ?>
+										<li><a href="/choose-offer?change=1&amp;offer=silver" class="button alt">Choose</a></li>
+									<?php else : ?>
+										<li><a href="/choose-offer?offer=silver" class="button alt">Choose</a></li>
+									<?php endif; ?>
 								</ul>
 							</section>
 
@@ -72,7 +80,11 @@
 								<h3 class="offer-title gold">Gold</h3>
 								<p>1200 calls/day</p>
 								<ul class="actions">
-									<li><a href="/choose-offer?offer=gold" class="button alt">Choose</a></li>
+									<?php if (Request::query('change') == 1) : ?>
+										<li><a href="/choose-offer?change=1&amp;offer=gold" class="button alt">Choose</a></li>
+									<?php else : ?>
+										<li><a href="/choose-offer?offer=gold" class="button alt">Choose</a></li>
+									<?php endif; ?>
 								</ul>
 							</section>
 
