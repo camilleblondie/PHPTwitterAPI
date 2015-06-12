@@ -23,6 +23,7 @@ $app->withFacades();
 // $app->withEloquent();
 
 
+
 if (class_exists('View') != true)
 {
 	class_alias('Illuminate\Support\Facades\View', 'View');

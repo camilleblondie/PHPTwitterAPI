@@ -55,7 +55,7 @@ $app->get('/authorize', ['middleware' => 'authMiddleware', function() use ($app)
         if ($request_token['oauth_token'] !== $_REQUEST['oauth_token']) {
             // Abort! Something is wrong.
         }
-        $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET,
+        $connection = new TwitterOAuth(config('constants.CONSUMER_SECRET'), config('constants.CONSUMER_SECRET'),
             $request_token['oauth_token'], $request_token['oauth_token_secret']);
         $access_token = $connection->oauth("oauth/access_token", array("oauth_verifier" => $_REQUEST['oauth_verifier']));
         // saving access token
@@ -63,7 +63,7 @@ $app->get('/authorize', ['middleware' => 'authMiddleware', function() use ($app)
         return redirect(url('/dashboard'));
     } else {
         // generating request token
-        $connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET);
+        $connection = new TwitterOAuth(config('constants.CONSUMER_SECRET'), config('constants.CONSUMER_SECRET'));
         $request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => url('/authorize')));
         Session::put('oauth_token', $request_token['oauth_token']);
         Session::put('oauth_token_secret', $request_token['oauth_token_secret']);
