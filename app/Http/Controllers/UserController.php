@@ -5,6 +5,7 @@ use DB;
 use Request;
 use Hash;
 use Auth;
+use Session;
 
 class UserController extends BaseController
 {
@@ -60,8 +61,14 @@ class UserController extends BaseController
 	{
 		if (Auth::check()) {
 			Auth::logout();
-			return redirect('/');
 		}
+		return redirect('/');
+	}
+
+	public static function updateAccessToken($access_token)
+	{
+		DB::update('UPDATE users SET consumer_key = ?, secret_key = ? WHERE id = ?',
+				[ $access_token['oauth_token'], $access_token['oauth_token_secret'], Auth::user()->id ]);
 	}
 
 	public function chooseOffer()

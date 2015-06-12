@@ -154,3 +154,9 @@
 .tab-content > .active {
   display: block;
 }
+
+/* FOOTER */
+
+.footer-label {
+  vertical-align: text-bottom;
+}

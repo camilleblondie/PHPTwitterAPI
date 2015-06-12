@@ -23,8 +23,12 @@
 					<nav id="nav">
 						<ul>
 							<li><a href="/">Home</a></li>
+							<li><a href="/dashboard">Dashboard</a></li>
 							<li><a href="/docs">Docs</a></li>
-							<li><a href="/signup" class="button">Sign Up</a></li>
+							<?php if (Auth::check()) : ?>
+							<li><a href="/logout">Log out</a></li>
+							<li><span>Logged in as <em><?php echo Auth::user()->username ?></em></span></li>
+							<?php endif; ?>
 						</ul>
 					</nav>
 				</header>
@@ -42,7 +46,8 @@
 									<h2 class="price">Free</h2>
 								</span>
 								<h3 class="offer-title bronze">Bronze</h3>
-								<p>100 calls/day</p>
+								<h4>100 calls/day</h4>
+								<p>With a maximum value of 15 requests every 15 minutes</p>
 								<ul class="actions">
 									<?php if (Request::query('change') == 1) : ?>
 										<li><a href="/choose-offer?change=1&amp;offer=bronze" class="button alt">Choose</a></li>
@@ -60,7 +65,8 @@
 									<h2 class="price">30$/month</h2>
 								</span>
 								<h3 class="offer-title silver">Silver</h3>
-								<p>600 calls/day</p>
+								<h4>600 calls/day</h4>
+								<p>With a maximum value of 15 requests every 15 minutes</p>
 								<ul class="actions">
 									<?php if (Request::query('change') == 1) : ?>
 										<li><a href="/choose-offer?change=1&amp;offer=silver" class="button alt">Choose</a></li>
@@ -78,7 +84,8 @@
 									<h2 class="price">50$/month</h2>
 								</span>
 								<h3 class="offer-title gold">Gold</h3>
-								<p>1200 calls/day</p>
+								<h4>1200 calls/day</h4>
+								<p>With a maximum value of 15 requests every 15 minutes</p>
 								<ul class="actions">
 									<?php if (Request::query('change') == 1) : ?>
 										<li><a href="/choose-offer?change=1&amp;offer=gold" class="button alt">Choose</a></li>
@@ -95,15 +102,11 @@
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">
-						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+						<li class="footer-label"><span class="label">Visit our GitHub</span></li>
+						<li><a href="http://github.com/camilleblondie/PHPTwitterAPI" class="icon fa-github"><span class="label">Github</span></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; PHPTwitterAPI. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 				</footer>
 

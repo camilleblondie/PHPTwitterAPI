@@ -23,6 +23,7 @@ $app->withFacades();
 // $app->withEloquent();
 
 class_alias('Illuminate\Support\Facades\View', 'View');
+class_alias('App\Http\Controllers\UserController', 'User');
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,8 @@ $app->middleware([
 
 $app->routeMiddleware([
 	'authMiddleware' => 'App\Http\Middleware\AuthMiddleware',
+	'apiBeforeMiddleware' => 'App\Http\Middleware\ApiBeforeMiddleware',
+	'logMiddleware' => 'App\Http\Middleware\LogMiddleware',
 ]);
 
 /*
