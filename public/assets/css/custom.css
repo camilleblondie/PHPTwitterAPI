@@ -71,6 +71,14 @@
   vertical-align: bottom;
 }
 
+.total-consumption {
+  margin-bottom: 30px;
+}
+
+.change-offer-button {
+  margin-left: 15px;
+}
+
 /* API DOCS */
 .nav {
   padding-left: 0;
@@ -145,4 +153,10 @@
 }
 .tab-content > .active {
   display: block;
+}
+
+/* FOOTER */
+
+.footer-label {
+  vertical-align: text-bottom;
 }

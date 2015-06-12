@@ -72,31 +72,20 @@
 								<i class="fa fa-check"></i>
 								Your offer : 
 								<?php if (Auth::user()->offer == 3) : ?>
-									<strong>Gold - 1200 calls/day</strong></h4>
+									<strong>Gold - 1200 calls/day</strong>
 								<?php elseif (Auth::user()->offer == 2) : ?>
-									<strong>Silver - 600 calls/day</strong></h4>
+									<strong>Silver - 600 calls/day</strong>
 								<?php else : ?>
-									<strong>Bronze - 100 calls/day</strong></h4>
+									<strong>Bronze - 100 calls/day</strong>
 								<?php endif; ?>
-							<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
-
-							<p>Today's consumption : <strong><?php echo $metricsForTodayCount; ?></strong> calls</p>
-							<table>
-									<thead>
-										<tr>
-											<th>Date</th>
-											<th>Total</th>
-										</tr>
-									</thead>
-									<tbody>
-									<?php foreach ($metricsCountGroupedByDay as $metric) : ?>
-										<tr>
-											<td><?php echo $metric->date; ?></td>
-											<td><?php echo $metric->total; ?></td>
-										</tr>
-									<?php endforeach; ?>
-									</tbody>
-								</table>
+							<a class="button special small change-offer-button" href="/choose-offer?change=1">Change offer</a>
+							</h4>
+							<section class="total-consumption">
+								<h4><i class="fa fa-bar-chart"></i>Call consumption</h4>
+								<p>Today's consumption : <strong><?php echo $metricsForTodayCount; ?></strong> calls</p>
+								
+								<canvas id="myChart" width="900" height="400"></canvas>
+							</section>
 
 							<h4><i class="fa fa-history"></i>  Call history</h4>
 							<div class="table-wrapper">
@@ -127,15 +116,11 @@
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">
-						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
-						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+						<li class="footer-label"><span class="label">Visit our GitHub</span></li>
+						<li><a href="http://github.com/camilleblondie/PHPTwitterAPI" class="icon fa-github"><span class="label">Github</span></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						<li>&copy; PHPTwitterAPI. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 					</ul>
 				</footer>
 
@@ -149,6 +134,28 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/Chart.js"></script>
+
+			<script type="text/javascript">
+				var data = {
+					labels:[ <?php foreach ($metricsCountGroupedByDay as $metric) { echo '"', $metric->date, '"', ','; } ?> ],
+					datasets: [
+						{
+							label: "My First dataset",
+							fillColor: "rgba(220,220,220,0.2)",
+							strokeColor: "rgba(220,220,220,1)",
+							pointColor: "rgba(220,220,220,1)",
+							pointStrokeColor: "#fff",
+							pointHighlightFill: "#fff",
+							pointHighlightStroke: "rgba(220,220,220,1)",
+							data: [ <?php foreach ($metricsCountGroupedByDay as $metric) { echo $metric->total, ','; } ?> ]
+						}
+					]
+				};
+				var options = {};
+				var ctx = document.getElementById("myChart").getContext("2d");
+				var myLineChart = new Chart(ctx).Line(data, options);
+			</script>
 
 	</body>
 </html>
