@@ -22,8 +22,17 @@ $app = new Laravel\Lumen\Application(
 $app->withFacades();
 // $app->withEloquent();
 
-class_alias('Illuminate\Support\Facades\View', 'View');
-class_alias('App\Http\Controllers\UserController', 'User');
+
+if (class_exists('View') != true)
+{
+	class_alias('Illuminate\Support\Facades\View', 'View');
+}
+
+if (class_exists('User') != true)
+{
+	class_alias('App\Http\Controllers\UserController', 'User');
+}
+
 
 /*
 |--------------------------------------------------------------------------
