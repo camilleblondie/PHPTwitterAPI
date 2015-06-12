@@ -9,27 +9,28 @@
 class PostGetAndDeleteTweetTest extends TestCase
 {
 
+    var $api_key = '557aef0ca09a4';
     public function testPostGetAndDeleteTweet()
     {
         $tweetToTest = 'Test '.rand(0, 2000);
         $credentials = array(
             'status'=> $tweetToTest
         );
-        $response = $this->call('POST', '/api/tweet?api_key=557aef0ca09a4', $credentials);
+        $response = $this->call('POST', '/api/tweet?api_key='.$this->api_key, $credentials);
         $respJson = json_decode($response->getContent());
 
         $this->assertResponseStatus(200);
 
 
         $tweetId = $respJson->{"id"};
-        $response = $this->call('GET', '/api/tweet/'.$tweetId.'?api_key=557aef0ca09a4');
+        $response = $this->call('GET', '/api/tweet/'.$tweetId.'?api_key='.$this->api_key);
         $respJson = json_decode($response->getContent());
 
         $this->assertResponseStatus(200);
 
         $this->assertEquals($tweetToTest, $respJson->{'text'});
 
-        $response = $this->call('DELETE', '/api/tweet/'.$tweetId.'?api_key=557aef0ca09a4');
+        $response = $this->call('DELETE', '/api/tweet/'.$tweetId.'?api_key='.$this->api_key);
 
 
         $this->assertResponseStatus(200);

@@ -24,4 +24,6 @@ class ErrorUnitTest extends TestCase
         $this->assertResponseStatus(200);
         $this->assertEquals($respJson, $respTest);
     }
+
+
 }
