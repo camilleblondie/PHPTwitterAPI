@@ -63,7 +63,7 @@ $app->get('/authorize', ['middleware' => 'authMiddleware', function() use ($app)
         return redirect(url('/dashboard'));
     } else {
         // generating request token
-        $connection = new TwitterOAuth(config('constants.CONSUMER_SECRET'), config('constants.CONSUMER_SECRET'));
+        $connection = new TwitterOAuth(config('constants.CONSUMER_KEY'), config('constants.CONSUMER_SECRET'));
         $request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => url('/authorize')));
         Session::put('oauth_token', $request_token['oauth_token']);
         Session::put('oauth_token_secret', $request_token['oauth_token_secret']);
