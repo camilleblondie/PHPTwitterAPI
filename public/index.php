@@ -25,4 +25,7 @@ $app = require __DIR__.'/../bootstrap/app.php';
 |
 */
 
+define('CONSUMER_KEY', getenv('CONSUMER_KEY'));
+define('CONSUMER_SECRET', getenv('CONSUMER_SECRET'));
+
 $app->run();

@@ -16,7 +16,9 @@ class ExampleTest extends TestCase {
 
     public function testGetFollowers()
     {
-        $response = $this->call('GET', '/followings?screen_name=test_php_2015&count=1');
+        $response = $this->call('GET', '/api/followings?api_key=5579bec3f0432&screen_name=eric_reptile');
+        //echo 'TEST 1';
+        echo $response->getContent();
         $respJson = json_decode($response->getContent());
         $dataTest = array(
             array(
