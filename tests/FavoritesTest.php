@@ -19,11 +19,13 @@ class Favorites extends TestCase
         $dataTest = array(
             array(
                 "text" => "Le mot bonheur est si usé qu'on distingue à travers sa trame le visage ironique de l'utopie.",
-                "screen_name" => "bernardpivot1"
+                "screen_name" => "bernardpivot1",
+                "id" => "608497615374852097"
             ),
             array(
                 "text" => "En philosophie ou au Café du Commerce, on se contredit ; en politique, on dit contre.",
-                "screen_name" => "bernardpivot1"
+                "screen_name" => "bernardpivot1",
+                "id" => "607776112958177280"
             )
         );
 

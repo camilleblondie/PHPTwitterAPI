@@ -6,7 +6,7 @@
  * Time: 10:57 PM
  */
 
-class PostTooLongTweet extends TestCase
+class PostTooLongTweetTest extends TestCase
 {
 
     var $api_key = '557aef0ca09a4';
