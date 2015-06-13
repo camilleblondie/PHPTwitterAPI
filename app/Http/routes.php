@@ -206,14 +206,25 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
     $app->get('/search', function() {
         if (!Request::has('query'))
             return response()->json(['error' => 'Please specify a "query" parameter']);
-        $connection = Request::get('connection');
+        $memcached = new Memcached();
+        $memcached->addServer('localhost', 11211);
+        //$memcached->addServers('localhost');
+        
         $query = Request::input('query', '');
+
+        if ($memcached->get($query))
+        {
+            return response()->json($memcached->get($query));
+        }
+
+        $connection = Request::get('connection');
         $count = Request::input('count', '10');
         $statuses_list = $connection->get("search/tweets", array("q" => $query, "count" => $count));
         if ($connection->getLastHttpCode() == 200) {
             $statuses = [];
             foreach ($statuses_list->statuses as $status)
                 array_push($statuses, ['text' => $status->text, "id" => $status->id]);
+            $memcached->set($query, $statuses, 60);
             return response()->json($statuses);
         }
         else
