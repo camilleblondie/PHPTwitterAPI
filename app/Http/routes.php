@@ -97,7 +97,7 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
         if ($connection->getLastHttpCode() == 200)
             return response()->json(['id' => $status->id]);
         else
-            return response()->json(['error' => 'This tweet does not exist.']);
+            return response()->json($status);
     });
 
     // POST /retweet/:id
@@ -127,7 +127,7 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
         if ($connection->getLastHttpCode() == 200) {
             $tweets = [];
             foreach ($statuses as $status)
-                array_push($tweets, ['text' => $status->text]);
+                array_push($tweets, ['text' => $status->text, "id" => $status->id]);
             return response()->json($tweets);
         }
         else
@@ -151,7 +151,7 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
         if ($connection->getLastHttpCode() == 200) {
             $tweets = [];
             foreach ($statuses as $status)
-                array_push($tweets, ['text' => $status->text, 'screen_name' => $status->user->screen_name]);
+                array_push($tweets, ['text' => $status->text, 'screen_name' => $status->user->screen_name, "id" => $status->id]);
             return response()->json($tweets);
         }
         else
@@ -213,7 +213,7 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
         if ($connection->getLastHttpCode() == 200) {
             $statuses = [];
             foreach ($statuses_list->statuses as $status)
-                array_push($statuses, ['text' => $status->text]);
+                array_push($statuses, ['text' => $status->text, "id" => $status->id]);
             return response()->json($statuses);
         }
         else
