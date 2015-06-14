@@ -122,100 +122,163 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
 
     // GET /tweets/:screen_name
     $app->get('/tweets/{screen_name}', function($screen_name) {
-        $connection = Request::get('connection');
-        $statuses = $connection->get("statuses/user_timeline", array("screen_name" => $screen_name));
-        if ($connection->getLastHttpCode() == 200) {
-            $tweets = [];
-            foreach ($statuses as $status)
-                array_push($tweets, ['text' => $status->text, "id" => $status->id]);
-            return response()->json($tweets);
+        $memcached = new Memcached();
+        $memcached->addServer('localhost', 11211);
+
+        if ($memcached->get('tweets'.$screen_name))
+        {
+            return response()->json($memcached->get('tweets'.$screen_name));
         }
-        else
-            return response()->json(['error' => 'This tweet does not exist.']);
+        else {
+            $connection = Request::get('connection');
+            $statuses = $connection->get("statuses/user_timeline", array("screen_name" => $screen_name));
+            if ($connection->getLastHttpCode() == 200) {
+                $tweets = [];
+                foreach ($statuses as $status)
+                    array_push($tweets, ['text' => $status->text, "id" => $status->id]);
+                $memcached->set('tweets'.$screen_name, $tweets, 120);
+                return response()->json($tweets);
+            } else
+                return response()->json(['error' => 'This tweet does not exist.']);
+        }
     });
 
     // GET /favorites
     $app->get('/favorites', function() {
         if (!Request::has('screen_name') && !Request::has('user_id'))
             return response()->json(['error' => 'This user does not exist']);
-
-        $connection = Request::get('connection');
         $screen_name = Request::input('screen_name', '');
-        $user_id = Request::input('user_id', '');
         $count = Request::input('count', '10');
 
-        if (Request::has('screen_name'))
-            $statuses = $connection->get("favorites/list", array("screen_name" => $screen_name, "count" => $count));
-        else
-            $statuses = $connection->get("favorites/list", array("user_id" => $user_id, "count" => $count));
-        if ($connection->getLastHttpCode() == 200) {
-            $tweets = [];
-            foreach ($statuses as $status)
-                array_push($tweets, ['text' => $status->text, 'screen_name' => $status->user->screen_name, "id" => $status->id]);
-            return response()->json($tweets);
+
+        $memcached = new Memcached();
+        $memcached->addServer('localhost', 11211);
+
+        if ($memcached->get('favorites'.$screen_name.$count))
+        {
+            return response()->json($memcached->get('favorites'.$screen_name.$count));
         }
-        else
-            return response()->json(['error' => 'This user does not exist']);
+        else {
+            $connection = Request::get('connection');
+            $user_id = Request::input('user_id', '');
+
+            if (Request::has('screen_name'))
+                $statuses = $connection->get("favorites/list", array("screen_name" => $screen_name, "count" => $count));
+            else
+                $statuses = $connection->get("favorites/list", array("user_id" => $user_id, "count" => $count));
+            if ($connection->getLastHttpCode() == 200) {
+                $tweets = [];
+                foreach ($statuses as $status)
+                    array_push($tweets, ['text' => $status->text, 'screen_name' => $status->user->screen_name, "id" => $status->id]);
+                $memcached->set('favorites'.$screen_name.$count, $tweets, 120);
+                return response()->json($tweets);
+            } else
+                return response()->json(['error' => 'This user does not exist']);
+        }
     });
 
     // GET /followers
     $app->get('/followers', function() {
         if (!Request::has('screen_name') && !Request::has('user_id'))
             return response()->json(['error' => 'This user does not exist']);
-        $connection = Request::get('connection');
         $screen_name = Request::input('screen_name', '');
-        $user_id = Request::input('user_id', '');
         $count = Request::input('count', '10');
-        if (Request::has('screen_name'))
-            $followers_list = $connection->get("followers/list", array("screen_name" => $screen_name, "count" => $count));
-        else
-            $followers_list = $connection->get("followers/list", array("user_id" => $user_id, "count" => $count));
-        if ($connection->getLastHttpCode() == 200) {
-            $followers = [];
-            foreach ($followers_list->users as $follower)
-                array_push($followers, ['screen_name' => $follower->screen_name]);
-            return response()->json($followers);
+
+        $memcached = new Memcached();
+        $memcached->addServer('localhost', 11211);
+
+        if ($memcached->get('followers'.$screen_name.$count))
+        {
+            return response()->json($memcached->get('followers'.$screen_name.$count));
         }
-        else
-            return response()->json(['error' => 'This user does not exist']);
+        else {
+            $connection = Request::get('connection');
+            $user_id = Request::input('user_id', '');
+            if (Request::has('screen_name'))
+                $followers_list = $connection->get("followers/list", array("screen_name" => $screen_name, "count" => $count));
+            else
+                $followers_list = $connection->get("followers/list", array("user_id" => $user_id, "count" => $count));
+            if ($connection->getLastHttpCode() == 200) {
+                $followers = [];
+                foreach ($followers_list->users as $follower)
+                    array_push($followers, ['screen_name' => $follower->screen_name]);
+                $memcached->set('followers'.$screen_name.$count, $followers, 120);
+                return response()->json($followers);
+            } else
+                return response()->json(['error' => 'This user does not exist']);
+        }
     });
 
     // GET /followings
     $app->get('/followings', function() {
         if (!Request::has('screen_name') && !Request::has('user_id'))
             return response()->json(['error' => 'This user does not exist']);
-        $connection = Request::get('connection');
         $screen_name = Request::input('screen_name', '');
-        $user_id = Request::input('user_id', '');
         $count = Request::input('count', '10');
-        if (Request::has('screen_name'))
-            $followings_list = $connection->get("friends/list", array("screen_name" => $screen_name, "count" => $count));
-        else
-            $followings_list = $connection->get("friends/list", array("user_id" => $user_id, "count" => $count));
-        if ($connection->getLastHttpCode() == 200) {
-            $followings = [];
-            foreach ($followings_list->users as $following)
-                array_push($followings, ['screen_name' => $following->screen_name]);
-            return response()->json($followings);
+
+        $memcached = new Memcached();
+        $memcached->addServer('localhost', 11211);
+
+
+        if ($memcached->get('followings'.$screen_name.$count))
+        {
+            return response()->json($memcached->get('followings'.$screen_name.$count));
         }
-        else
-            return response()->json(['error' => 'This user does not exist']);
+        else {
+            $connection = Request::get('connection');
+            $user_id = Request::input('user_id', '');
+            if (Request::has('screen_name'))
+                $followings_list = $connection->get("friends/list", array("screen_name" => $screen_name, "count" => $count));
+            else
+                $followings_list = $connection->get("friends/list", array("user_id" => $user_id, "count" => $count));
+            if ($connection->getLastHttpCode() == 200) {
+                $followings = [];
+                foreach ($followings_list->users as $following)
+                    array_push($followings, ['screen_name' => $following->screen_name]);
+                $memcached->set('followings'.$screen_name.$count, $followings, 120);
+                return response()->json($followings);
+            } else
+                return response()->json(['error' => 'This user does not exist']);
+        }
+
     });
 
     // GET /search
     $app->get('/search', function() {
         if (!Request::has('query'))
             return response()->json(['error' => 'Please specify a "query" parameter']);
+        $query = Request::input('query', '');
+        $count = Request::input('count', '10');
+
         $memcached = new Memcached();
         $memcached->addServer('localhost', 11211);
-        //$memcached->addServers('localhost');
-        
-        $query = Request::input('query', '');
 
-        if ($memcached->get($query))
+
+        if ($memcached->get($query.$count))
         {
-            return response()->json($memcached->get($query));
+            return response()->json($memcached->get($query.$count));
         }
+        else {
+
+            $connection = Request::get('connection');
+            $statuses_list = $connection->get("search/tweets", array("q" => $query, "count" => $count));
+            if ($connection->getLastHttpCode() == 200) {
+                $statuses = [];
+                foreach ($statuses_list->statuses as $status)
+                    array_push($statuses, ['text' => $status->text, "id" => $status->id]);
+                $memcached->set($query.$count, $statuses, 120);
+                return response()->json($statuses);
+            } else
+                return response()->json(['error' => $connection->getLastHttpCode()]);
+        }
+    });
+
+    // GET Not cached /search
+    $app->get('/notcachedsearch', function() {
+        if (!Request::has('query'))
+            return response()->json(['error' => 'Please specify a "query" parameter']);
+
+        $query = Request::input('query', '');
 
         $connection = Request::get('connection');
         $count = Request::input('count', '10');
@@ -224,7 +287,6 @@ $app->group(['prefix' => 'api', 'middleware' => ['apiBeforeMiddleware', 'logMidd
             $statuses = [];
             foreach ($statuses_list->statuses as $status)
                 array_push($statuses, ['text' => $status->text, "id" => $status->id]);
-            $memcached->set($query, $statuses, 60);
             return response()->json($statuses);
         }
         else
