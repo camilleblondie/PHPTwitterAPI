@@ -2,19 +2,19 @@
 /**
  * Created by PhpStorm.
  * User: jeanreptile
- * Date: 6/12/15
- * Time: 11:29 PM
+ * Date: 6/14/15
+ * Time: 8:06 PM
  */
 
-class NoQueryParameterTest extends TestCase
+class WrongTypeofParameterCountTest extends TestCase
 {
 
-    public function testNoQueryParameter()
+    public function testWrongTypeofParameterCount()
     {
-        $response = $this->call('GET', '/api/search?api_key=557aef0ca09a4');
+        $response = $this->call('GET', '/api/favorites?api_key=557aef0ca09a4&screen_name=eric_reptile&count=poney');
         $respJson = json_decode($response->getContent());
         $dataTest = array(
-                "error" => "Please specify a \"query\" parameter"
+            "error" => "The parameter count must be a number"
         );
 
         $respTest = json_decode(json_encode($dataTest));
@@ -23,5 +23,3 @@ class NoQueryParameterTest extends TestCase
         $this->assertEquals($respJson, $respTest);
     }
 }
-
-?>

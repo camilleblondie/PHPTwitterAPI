@@ -6,3 +6,6 @@
 ./vendor/bin/phpunit tests/PostTooLongTweetTest.php
 ./vendor/bin/phpunit tests/PostGetAndDeleteTweetTest.php
 ./vendor/bin/phpunit tests/NotValidAPIKeyTest.php
+./vendor/bin/phpunit tests/WrongTypeofParameterTest.php
+./vendor/bin/phpunit tests/WrongTypeofParameterCountTest.php
+./vendor/bin/phpunit tests/NotExistingTweetTest.php
