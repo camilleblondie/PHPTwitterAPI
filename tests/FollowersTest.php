@@ -15,9 +15,6 @@ class FollowersTest extends TestCase
         $respJson = json_decode($response->getContent());
         $dataTest = array(
             array(
-                "screen_name" => "WizKahIifer"
-            ),
-            array(
                 "screen_name" => "Sherryzzo"
             ),
             array(
